@@ -1,21 +1,42 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import 'Homepage.dart';
-import 'sliderimage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:mymendorr/forms/bid_form.dart';
+import 'package:mymendorr/sliderimage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+      ),
+      builder: (context, child) {
+        return FormThemeProvider(
+          theme: const FormTheme(
+            checkboxTheme: CheckboxFieldTheme(
+              canTapItemTile: true,
+            ),
+            // radioTheme: RadioFieldTheme(
+            //   canTapItemTile: true,
+            // ),
+          ),
+          child: child!,
+        );
+      },
+      home: const HomePage(),
     );
   }
 }
