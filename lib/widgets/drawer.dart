@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mymendorr/screen/bid.dart';
-import 'package:mymendorr/forms/bid_form.dart';
-import 'package:mymendorr/screen/login.dart';
+import 'package:mymendorr/screen/form/login.dart';
+import '../forms/id_form.dart';
+import '../screen/form/example.dart';
+import '../screen/form/id.dart';
 import '../screen/schedluapp.dart';
 import '../screen/signup.dart';
 
@@ -48,7 +49,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomeMaterial()),
+                MaterialPageRoute(builder: (context) => ExampleFormPage()),
               );
             },
           ),
@@ -199,11 +200,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
               : Container(),
           ListTile(
             leading: const Icon(Icons.share),
-            title: const Text("Announcement"),
+            title: const Text("Start New ID Application "),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BidFormPage()),
+                MaterialPageRoute(builder: (context) => HomeMaterial()),
               );
             },
           ),
@@ -213,7 +214,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignUpPage()),
+                MaterialPageRoute(builder: (context) => signupPage()),
               );
             },
           ),

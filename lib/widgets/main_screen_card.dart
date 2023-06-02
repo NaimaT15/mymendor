@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mymendorr/forms/bid_form.dart';
+import 'package:mymendorr/forms/id_form.dart';
 import 'package:mymendorr/sliderimage.dart';
+
+import '../forms/example_form.dart';
 
 class MainScreenCard extends StatelessWidget {
   final imageUrl;
@@ -31,6 +34,20 @@ class MainScreenCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => BidForm()),
+            )
+          }
+        else if (openScreenName == "id-form")
+          {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => IDForm()),
+            )
+          }
+        else if (openScreenName == "example-form")
+          {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AllFieldsForm()),
             )
           }
       },

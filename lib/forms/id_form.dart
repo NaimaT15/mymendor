@@ -2,15 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class BidFormBloc extends FormBloc<String, String> {
-  final first_name = TextFieldBloc(
-    validators: [
-      FieldBlocValidators.required,
-    ],
-  );
-  final last_name = TextFieldBloc(
+class IDFormBloc extends FormBloc<String, String> {
+  final name = TextFieldBloc(
     validators: [
       FieldBlocValidators.required,
     ],
@@ -19,12 +13,6 @@ class BidFormBloc extends FormBloc<String, String> {
     validators: [
       FieldBlocValidators.required,
       FieldBlocValidators.email,
-    ],
-  );
-
-  final ID = TextFieldBloc(
-    validators: [
-      FieldBlocValidators.required,
     ],
   );
   final password = TextFieldBloc(
@@ -38,16 +26,22 @@ class BidFormBloc extends FormBloc<String, String> {
       FieldBlocValidators.required,
     ],
   );
+  final age = TextFieldBloc(
+    validators: [
+      FieldBlocValidators.required,
+      // FieldBlocValidators.integer,
+      // FieldBlocValidators.min(18),
+    ],
+  );
 
-  BidFormBloc() {
+  IDFormBloc() {
     addFieldBlocs(
       fieldBlocs: [
-        first_name,
-        last_name,
+        name,
         email,
-        ID,
         password,
         confirmPassword,
+        age,
       ],
     );
   }
@@ -55,27 +49,26 @@ class BidFormBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     final data = {
-      "first_name": first_name.value,
-      "last_name": last_name.value,
+      "name": name.value,
       "email": email.value,
-      "ID": ID.value,
       "password": password.value,
+      "age": int.parse(age.value),
     };
     emitSuccess(successResponse: jsonEncode(data));
   }
 }
 
-class BidForm extends StatelessWidget {
+class IDForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BidFormBloc(),
+      create: (context) => IDFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = context.read<BidFormBloc>();
+          final formBloc = context.read<IDFormBloc>();
           return Scaffold(
-            appBar: AppBar(title: const Text('Signup')),
-            body: FormBlocListener<BidFormBloc, String, String>(
+            appBar: AppBar(title: const Text('Fill ID Form')),
+            body: FormBlocListener<IDFormBloc, String, String>(
               onSubmitting: (context, state) {},
               onSuccess: (context, state) {
                 print(state.successResponse);
@@ -89,26 +82,14 @@ class BidForm extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       TextFieldBlocBuilder(
-                        textFieldBloc: formBloc.first_name,
+                        textFieldBloc: formBloc.name,
                         decoration: const InputDecoration(
-                            labelText: 'first_name',
-                            hintText: 'Enter your first_name'),
-                      ),
-                      TextFieldBlocBuilder(
-                        textFieldBloc: formBloc.first_name,
-                        decoration: const InputDecoration(
-                            labelText: 'last_name',
-                            hintText: 'Enter your last_name'),
+                            labelText: 'Name', hintText: 'Enter your name'),
                       ),
                       TextFieldBlocBuilder(
                         textFieldBloc: formBloc.email,
                         decoration: const InputDecoration(
                             labelText: 'Email', hintText: 'Enter your email'),
-                      ),
-                      TextFieldBlocBuilder(
-                        textFieldBloc: formBloc.first_name,
-                        decoration: const InputDecoration(
-                            labelText: 'ID', hintText: 'Enter your ID'),
                       ),
                       TextFieldBlocBuilder(
                         textFieldBloc: formBloc.password,
@@ -124,6 +105,11 @@ class BidForm extends StatelessWidget {
                             labelText: 'Confirm Password',
                             hintText: 'Re-enter your password'),
                       ),
+                      TextFieldBlocBuilder(
+                        textFieldBloc: formBloc.age,
+                        decoration: const InputDecoration(
+                            labelText: 'Age', hintText: 'Enter your age'),
+                      ),
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: formBloc.submit,
@@ -138,7 +124,7 @@ class BidForm extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: const Text(
-                              'CREATE ACCOUNT',
+                              'Submit',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 21,
@@ -147,23 +133,6 @@ class BidForm extends StatelessWidget {
                               ),
                             )),
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, "/signin");
-                        },
-                        child: Text(
-                          "Already have an account?",
-                          style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 13,
-                                  decoration: TextDecoration.underline,
-                                  letterSpacing: 0.5)),
-                        ),
-                      )
                     ],
                   ),
                 ),

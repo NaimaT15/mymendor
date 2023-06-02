@@ -37,34 +37,34 @@ class _HomePageState extends State<HomePage> {
   int heightToBeReduced = 400;
   final List data = [
     {
-      "title": "Image 1",
+      //"title": "Image 1",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
     {
-      "title": "Image 2",
+      //"title": "Image 2",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
     {
-      "title": "Image 3",
+      //"title": "Image 3",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
     {
-      "title": "Image 4",
+      //"title": "Image 4",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
     {
-      "title": "Image 5",
+      // "title": "Image 5",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
     {
-      "title": "Image 6",
+      //"title": "Image 6",
       "url":
-          "https://cdn.pixabay.com/photo/2020/04/19/12/26/thread-5063401_960_720.jpg"
+          "http://www.ethiopianproperties.com/wp-content/uploads/2016/01/DSC05392.jpg"
     },
   ];
 
@@ -91,13 +91,13 @@ class _HomePageState extends State<HomePage> {
             items: data.map((item) {
               return GridTile(
                 footer: Container(
-                    padding: const EdgeInsets.all(15),
-                    color: Colors.black54,
-                    child: Text(
-                      item["title"],
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
-                      textAlign: TextAlign.right,
-                    )),
+                  padding: const EdgeInsets.all(15),
+                  // color: Colors.black54,
+                  // child: Text(
+                  //    item["title"],
+                  //   style: const TextStyle(color: Colors.white, fontSize: 20),
+                  //   textAlign: TextAlign.right,
+                ),
                 child: Image.network(item["url"], fit: BoxFit.fill),
               );
             }).toList(),
@@ -112,32 +112,53 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
           ),
 
-          Container(
-              width: Get.width * .95,
-              child: Column(
-                children: [
-                  MainScreenCard(
-                    imageUrl: 'assets/images/profile.jpg',
-                    title: 'Start New Application',
-                    description:
-                        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
-                    backgroundColor: Colors.blue[300],
-                    openScreenName: 'bid-form',
+          SingleChildScrollView(
+            child: SizedBox(
+                width: Get.width * .95,
+                height: Get.height * .30,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      MainScreenCard(
+                        imageUrl: 'assets/images/profile.jpg',
+                        title: 'Start New Bid Application',
+                        description:
+                            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
+                        backgroundColor: Colors.blue[300],
+                        openScreenName: 'bid-form',
+                      ),
+                      MainScreenCard(
+                        imageUrl: 'assets/images/profile.jpg',
+                        title: 'Start New ID Application',
+                        description:
+                            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
+                        backgroundColor: Colors.deepPurple[300],
+                        openScreenName: 'id-form',
+                      ),
+                      MainScreenCard(
+                        imageUrl: 'assets/images/profile.jpg',
+                        title: 'Example Form',
+                        description:
+                            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
+                        backgroundColor: Colors.green[300],
+                        openScreenName: 'example-form',
+                      ),
+                      const MainScreenCard(
+                        imageUrl: 'assets/images/profile.jpg',
+                        title: 'Register',
+                        description:
+                            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
+                      ),
+                      const MainScreenCard(
+                        imageUrl: 'assets/images/profile.jpg',
+                        title: 'Check Status',
+                        description:
+                            "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
+                      )
+                    ],
                   ),
-                  const MainScreenCard(
-                    imageUrl: 'assets/images/profile.jpg',
-                    title: 'Register',
-                    description:
-                        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
-                  ),
-                  const MainScreenCard(
-                    imageUrl: 'assets/images/profile.jpg',
-                    title: 'Check Status',
-                    description:
-                        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing",
-                  )
-                ],
-              ))
+                )),
+          )
         ],
       ),
     );

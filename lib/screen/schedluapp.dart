@@ -33,21 +33,22 @@ class _HomeMaterialState extends State {
                         children: [
                           TextFormField(
                             decoration:
-                                const InputDecoration(labelText: 'First name'),
+                                const InputDecoration(labelText: 'Customer ID'),
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter your first name';
+                                return 'Please enter your Customer ID';
                               }
                             },
                             onSaved: (val) =>
                                 setState(() => _user.firstName = val!),
                           ),
+                          const SizedBox(height: 16),
                           TextFormField(
                               decoration:
-                                  InputDecoration(labelText: 'Last name'),
+                                  InputDecoration(labelText: 'Adminservice ID'),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter your last name.';
+                                  return 'Please enter your Adminservice ID.';
                                 }
                               },
                               onSaved: (val) =>
@@ -83,11 +84,6 @@ class _HomeMaterialState extends State {
                           ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          Text(
-                            'Selected Value: $dropdownValue',
-                            style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                           Container(
                               padding: const EdgeInsets.all(10),
