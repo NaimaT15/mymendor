@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mymendorr/screen/login.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../forms/login_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.title}) : super(key: key);
@@ -12,6 +12,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void Loginfunction() async {
+    // final loginn = await login("8790", '1234');
+    // print('login' + loginn.toString());
+  }
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -105,12 +110,17 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 10,
             ),
-            Text(
-              'Login',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 35, 123, 223),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
+            GestureDetector(
+              onTap: () {
+                Loginfunction();
+              },
+              child: Text(
+                'Login',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 35, 123, 223),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600),
+              ),
             ),
           ],
         ),
@@ -172,14 +182,16 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     SizedBox(height: height * .2),
                     _title(),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    _emailPasswordWidget(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _submitButton(),
+                    LoginForm(),
+
+                    // const SizedBox(
+                    //   height: 50,
+                    // ),
+                    // _emailPasswordWidget(),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // _submitButton(),
                     SizedBox(height: height * .14),
                     _loginAccountLabel(),
                   ],

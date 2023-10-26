@@ -1,23 +1,41 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:mymendorr/screen/bid.dart';
-import 'package:mymendorr/forms/bid_form.dart';
-import 'package:mymendorr/screen/login.dart';
-import '../screen/schedluapp.dart';
-import '../screen/signup.dart';
+import 'package:mymendorr/handler/service.dart';
+import 'package:mymendorr/model/department.dart';
+import 'package:mymendorr/screen/form/feedback.dart';
+import 'package:mymendorr/screen/form/login.dart';
+import 'package:mymendorr/screen/form/register.dart';
+import 'package:mymendorr/screen/requirment.dart';
+import '../forms/id_form.dart';
+import '../model/service.dart';
+import '../screen/form/bid.dart';
+import '../screen/form/id.dart';
+import '../screen/form/schedule.dart';
 
 class CommonDrawer extends StatefulWidget {
-  final isLoggedUser = false;
-
-  const CommonDrawer({Key? key, required bool isLoggedUser}) : super(key: key);
+  const CommonDrawer({Key? key}) : super(key: key);
 
   @override
   State<CommonDrawer> createState() => _CommonDrawerState();
 }
 
 class _CommonDrawerState extends State<CommonDrawer> {
+  bool isLoggedUser() {
+    var isLogged = isUserLoggedIn();
+    return isLogged;
+    // return true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: const Color(0xFF0C3B2E),
       child: ListView(
         padding: const EdgeInsets.all(8.0),
         children: [
@@ -28,7 +46,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
               height: 60,
               width: 60,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 0, 0, 0),
                   borderRadius: BorderRadius.circular(100),
                   image: const DecorationImage(
                       image: AssetImage("assets/images/profile.jpg"),
@@ -36,199 +54,173 @@ class _CommonDrawerState extends State<CommonDrawer> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text("Home"),
+            leading: const Icon(Icons.home, color: Colors.white),
+            title: const Text(
+              "Home",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text("Requirment"),
+            leading: const Icon(Icons.history, color: Colors.white),
+            title: const Text(
+              "Requirment",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomeMaterial()),
+                MaterialPageRoute(builder: (context) => const Requirement()),
               );
             },
           ),
-          widget.isLoggedUser
-              ? ExpansionTile(
-                  title: const Text('Schedule A ppointment'),
-                  leading: const Icon(Icons.view_list),
-                  children: <Widget>[
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child: Center(child: Text("nigd fikad"))))),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeMaterial()),
-                        );
-                      },
+          isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.share, color: Colors.white),
+                  title: const Text(
+                    "Schedule Appointment",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    const SizedBox(
-                      height: 7,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ScheduleFormPage()),
+                    );
+                  },
+                )
+              : Container(),
+          !isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.share, color: Colors.white),
+                  title: const Text(
+                    "Start New ID Application ",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child:
-                                      Center(child: Text("ginbata fikad."))))),
-                      onTap: () {},
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const IDForm()),
+                    );
+                  },
+                )
+              : Container(),
+          !isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.add, color: Colors.white),
+                  title: const Text(
+                    "Registor",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child: Center(
-                                      child: Text("wetat ina sport."))))),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 40,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child: Center(child: Text("Arso Ader."))))),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child:
-                                      Center(child: Text("Betoch & Limat"))))),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child:
-                                      Center(child: Text("Betoch & Limat."))))),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child:
-                                      Center(child: Text("Betoch & Limat."))))),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    GestureDetector(
-                      child: SizedBox(
-                          width: 250,
-                          height: 35,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Card(
-                                  child:
-                                      Center(child: Text("Betoch & Limat"))))),
-                      onTap: () {},
-                    ),
-                  ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterPage()),
+                    );
+                  },
                 )
               : Container(),
           ListTile(
-            leading: const Icon(Icons.share),
-            title: const Text("Announcement"),
+            leading: const Icon(Icons.feedback, color: Colors.white),
+            title: const Text(
+              "Feedback",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BidFormPage()),
+                MaterialPageRoute(builder: (context) => const FeedbackPage()),
               );
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.contact_page),
-            title: const Text("Registor"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignUpPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.contact_page),
-            title: const Text("Login"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            },
-          )
+          !isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.login, color: Colors.white),
+                  title: const Text(
+                    "Login",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                )
+              : Container(),
+          isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.login, color: Colors.white),
+                  title: const Text(
+                    "Bid",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BidFormPage()),
+                    );
+                  },
+                )
+              : Container(),
+          isLoggedUser()
+              ? ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.white),
+                  title: const Text(
+                    "Log out",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () {
+                    logout();
+                    showSnackBar(context, "logged out successfully");
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const LoginPage()),
+                    // );
+                  },
+                )
+              : Container(),
         ],
       ),
     );
+  }
+
+  void showSnackBar(BuildContext context, String text) {
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ));
+    } catch (error) {
+      error.toString();
+    }
   }
 }

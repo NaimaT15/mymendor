@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mymendorr/screen/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'form/login.dart';
+
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key, this.title}) : super(key: key);
 
@@ -88,8 +90,8 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),

@@ -16,10 +16,8 @@ class _BidFormPageState extends State<BidFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CommonDrawer(
-        isLoggedUser: false,
-      ),
-      body: BidForm(),
+      drawer: const CommonDrawer(),
+      body: PaymentForm(),
     );
   }
 }
