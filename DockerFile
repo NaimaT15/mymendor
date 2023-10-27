@@ -1,0 +1,54 @@
+# Base image for building Flutter project
+FROM openjdk:11 AS builder
+
+# Set environment variables
+ENV FLUTTER_HOME=/opt/flutter
+ENV PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    unzip \
+    xz-utils \
+    libglu1-mesa \
+    libpulse0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and setup Flutter SDK
+RUN git clone https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+RUN flutter config --no-analytics && \
+    flutter precache && \
+    flutter doctor
+
+# Set working directory
+WORKDIR /app
+
+# Copy pubspec files
+COPY pubspec.yaml .
+COPY pubspec.lock .
+
+# Get dependencies
+RUN flutter pub get
+
+# Copy the entire project
+COPY . .
+
+# Build the Flutter project
+RUN flutter build apk
+
+# Final image for running the Flutter project
+FROM openjdk:11-jre-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built APK from the builder image
+COPY --from=builder /app/build/app/outputs/flutter-apk/app.apk .
+
+# Expose the desired port (if needed)
+# EXPOSE <port>
+
+# Set the command to run the Flutter app
+CMD ["flutter", "run", "--release"]
