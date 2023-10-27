@@ -51,4 +51,4 @@ COPY --from=builder /app/build/app/outputs/flutter-apk/app.apk .
 # EXPOSE <port>
 
 # Set the command to run the Flutter app
-CMD ["flutter", "run", "--release"]
+CMD ["flutter", "run", "--release"/]
